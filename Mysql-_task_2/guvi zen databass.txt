@@ -1,0 +1,107 @@
+
+CREATE DATABASE guvi_zen_class;
+
+USE guvi_zen_class;
+
+  /*users*/
+
+   CREATE TABLE users(userid INTEGER AUTO_INCREMENT PRIMARY KEY,username VARCHAR(100),useremail VARCHAR(100),batchid  VARCHAR(50));
+
+
+ /* codekata*/
+
+   CREATE TABLE codekata(userid INTEGER, no_of_problems_solved INTEGER, FOREIGN KEY (userid) REFERENCES users(userid));
+
+
+ /*company_drives*/
+
+   CREATE TABLE company_drives(userid INTEGER,drive_date DATE,Company VARCHAR(100), FOREIGN KEY (userid) REFERENCES users(userid));
+
+ /* mentors*/
+
+   CREATE TABLE mentors(mentorid INTEGER AUTO_INCREMENT PRIMARY KEY,mentorname VARCHAR(100),mentoremail VARCHAR(100)); 
+
+ /*topics*/ 
+
+   CREATE TABLE topics(topicid INTEGER AUTO_INCREMENT PRIMARY KEY,topic VARCHAR(200),topic_date DATE,mentorid INTEGER,batchid VARCHAR(50),FOREIGN KEY (mentorid) REFERENCES mentors(mentorid)); 
+
+  /*task*/
+
+    CREATE TABLE tasks(taskid INTEGER AUTO_INCREMENT PRIMARY KEY, topicid INTEGER,task VARCHAR(1000),batchid INTEGER,FOREIGN KEY (topicid) REFERENCES topics(topicid));
+   
+ /*attendance*/
+    CREATE TABLE attendance(userid INTEGER,topicid INTEGER,attended BOOLEAN, taskid INTEGER,submitted BOOLEAN,FOREIGN KEY (userid) REFERENCES users(userid),FOREIGN KEY (topicid) REFERENCES topics(topicid),
+     FOREIGN KEY (taskid) REFERENCES tasks(taskid)); 
+
+
+/* queries*/
+
+    CREATE TABLE queries(queryid INTEGER AUTO_INCREMENT PRIMARY KEY , userid INTEGER, querybody VARCHAR(1000),mentorid INTEGER,FOREIGN KEY (userid) REFERENCES users(userid),FOREIGN KEY (mentorid) REFERENCES mentors(mentorid));
+
+
+                                                                                 
+                                                      INSERT VALUES
+
+INSERT INTO users ( user_id,user_name, email_id, batch_id,mentor_id)
+VALUES
+  (1,"Hari", "hari@gmail.com", 'batch52 wd tamil',1),
+  (2,"Kavi", "kavi@gmail.com", 'batch52 wd tamil',1),
+  (3,"Mani", "mani@gmail.com", 'batch52 wd tamil',1),
+  (4,"Suresh", "suresh@gmail.com", 'batch52 wd tamil',2),
+  (5,"Nithin", "nithin@gmail.com", 'batch52 wd tamil',2);
+
+INSERT INTO codekata (userid, no_of_problems_solved) 
+VALUES
+  (1, 40),
+  (2, 30),
+  (3, 50),
+  (4, 200),
+  (5, 100);
+
+
+INSERT INTO company_drives (userid, drive_date, Company) VALUES
+  (1, '2023-10-11', 'Google'),
+  (1, '2023-10-17', 'Amazon'),
+  (2, '2023-10-15', 'Guvi mentor'),
+  (2, '2023-10-21', 'Facebook'),
+  (5, '2023-10-30', 'zoho');
+
+
+INSERT INTO  mentors(mentorname,mentoremail) VALUES("Vansath","vasanth@gmail.com"),
+("Thirupathi","thiru@gmail.com"),
+("Senthil k","senthil@gmail.com"),
+("Dhyia","dhyia@gmail.com"),
+("Arun kumar","arun@gmail.com");
+
+
+INSERT INTO  topics(topic,topic_date,mentorid,batchid) VALUES("Html","2023-10-1",1,'batch52 wd tamil'),
+("css","2023-10-3",2,'batch52 wd tamil'),
+("javascript","2023-10-5",3,'batch52 wd tamil'),
+("React","2023-10-3",4,'batch52 wd tamil'),
+("Mysql","2023-10-5",5,'batch52 wd tamil');
+
+
+INSERT INTO  tasks(topicid,task,batchid) VALUES(1,"html task",'batch52 wd tamil'),
+(2,"css task",'batch52 wd tamil'),
+(3,"javasript task",'batch52 wd tamil'),
+(4,"React task",'batch52 wd tamil'),
+(5,"Mysql task",'batch52 wd tamil');
+
+
+INSERT INTO  attendance(userid,topicid,attended,taskid,submitted) VALUES(1,1,true,1,false),
+(2,2,true,2,false),
+(3,3,true,3,true),
+(4,4,true,4,false),
+(5,5,false,1,true);
+
+INSERT INTO   queries(userid,querybody,mentorid) VALUES(3,"query about html",1),
+(4,"query about React",4),
+(4,"query about Mysql",5),
+(1,"query about css",2),
+(2,"query about javascript",3);
+
+                                                                                 
+
+/*create by ajith*/
+/*create by ajith*/
+
